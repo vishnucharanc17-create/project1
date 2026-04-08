@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: search-agent-api
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_API_KEY_2
+        sync: false
+      - key: SERP_API_KEY
+        sync: false
+      - key: WEBSCRAPING_AI_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
+    autoDeploy: true
